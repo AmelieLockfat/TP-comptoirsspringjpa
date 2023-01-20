@@ -17,6 +17,7 @@ public class Ligne {
 	@Setter(AccessLevel.NONE) // la clé est auto-générée par la BD, On ne veut pas de "setter"
 	private Integer id;
 
+
 	@JoinColumn(nullable = false)
 	@ManyToOne(optional = false)
 	@NonNull

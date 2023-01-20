@@ -80,7 +80,7 @@ public class CommandeService {
                 p.setUnitesEnStock(p.getUnitesEnStock() - q);
             }
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalStateException("La commande a déjà été expédiée");
         }
         return commande;
     }

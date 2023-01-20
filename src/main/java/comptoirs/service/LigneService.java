@@ -50,18 +50,16 @@ public class LigneService {
         var commande = commandeDao.findById(commandeNum).orElseThrow();
         Produit produitref = produitDao.findById(produitRef).orElseThrow();
         //La commande est-elle déjà envoyée?
-        if (commande.getEnvoyeele() == null) {
-        //Si la commande n'est pas envoyée :
-            if (produitref.getUnitesEnStock()<quantite){
-            //Si le produit est en quantité suffisante
-                produitref.setUnitesCommandees(produitref.getUnitesCommandees()+quantite);
-                Ligne ligne = new Ligne()
-                produitDao.save()
-            }
-            else {
-            //Si les stocks sont insuffisants
+        Ligne newligne = new Ligne(commande,produitref,quantite);
+        if (commande.getEnvoyeele() != null)
+        {throw new IllegalStateException("Commande envoyée!");}
+        if (produitref.getUnitesEnStock() < quantite) {
+            throw new IllegalStateException("Pas de stocks!");
         }
-        else { throw new IllegalArgumentException();}
-        return ligne ;
+                produitref.setUnitesCommandees(produitref.getUnitesCommandees() + quantite);
+                ligneDao.save(newligne);
+
+        return newligne;
+
     }
 }
