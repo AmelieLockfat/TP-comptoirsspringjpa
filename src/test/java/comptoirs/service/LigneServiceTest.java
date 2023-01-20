@@ -24,6 +24,7 @@ class LigneServiceTest {
     @Autowired
     LigneService service;
 
+
     @Test
     void onPeutAjouterDesLignesSiPasLivre() {
         var ligne = service.ajouterLigne(NUMERO_COMMANDE_PAS_LIVREE, REFERENCE_PRODUIT_DISPONIBLE_1, 1);
