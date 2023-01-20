@@ -67,7 +67,7 @@ public class CommandeService {
      * @return la commande mise à jour
      */
     @Transactional
-    public Commande enregistreExpédition(Integer commandeNum) {
+    public Commande enregistreExpedition(Integer commandeNum) {
         var commande = commandeDao.findById(commandeNum).orElseThrow();
         // La commande existe
         if (commande.getEnvoyeele() == null) {

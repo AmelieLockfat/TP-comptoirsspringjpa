@@ -52,9 +52,9 @@ public class LigneService {
         //La commande est-elle déjà envoyée?
         Ligne newligne = new Ligne(commande,produitref,quantite);
         if (commande.getEnvoyeele() != null)
-        {throw new IllegalStateException("Commande envoyée!");}
+        {throw new IllegalStateException("Commande déjà envoyée!");}
         if (produitref.getUnitesEnStock() < quantite) {
-            throw new IllegalStateException("Pas de stocks!");
+            throw new IllegalStateException("Pas de stocks pour satisfaire la commande!");
         }
                 produitref.setUnitesCommandees(produitref.getUnitesCommandees() + quantite);
                 ligneDao.save(newligne);
