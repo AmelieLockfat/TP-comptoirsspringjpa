@@ -38,4 +38,10 @@ class LigneServiceTest {
             () -> service.ajouterLigne(NUMERO_COMMANDE_PAS_LIVREE, REFERENCE_PRODUIT_DISPONIBLE_1, 0),
             "La quantite d'une ligne doit être positive");
     }
+
+    
+    @Test
+    void testCommandeDejaEnvoyee(){
+        assertThrows(IllegalStateException.class, () -> service.ajouterLigne(99999,96,20), "La commande doit être déjà envoyée.");
+    }
 }

@@ -1,6 +1,8 @@
 package comptoirs.service;
 
+import comptoirs.dao.ProduitRepository;
 import comptoirs.entity.Commande;
+import comptoirs.entity.Ligne;
 import comptoirs.entity.Produit;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.matchers.NotNull;
@@ -9,9 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
  // Ce test est basé sur le jeu de données dans "test_data.sql"
@@ -24,6 +29,8 @@ class CommandeServiceTest {
 
     @Autowired
     private CommandeService service;
+    private ProduitRepository ProduitDao;
+
 
     @Test
     void testCreerCommandePourGrosClient() {
@@ -56,6 +63,12 @@ class CommandeServiceTest {
         // On expédie la commande aujourd'hui
         //On vérifie ici que la date a bien été enregistrée
         assertEquals(CLivree.getEnvoyeele(), LocalDate.now(), "L'expédition n'a pas eu lieu, erreur dans l'implémentation?");
+    }
+
+
+    @Test
+    void testEnvoyerCommandeDejaLivree(){
+        assertThrows(IllegalStateException.class, () -> service.enregistreExpedition(99999), "La commande doit être déjà envoyée.");
     }
 
 }

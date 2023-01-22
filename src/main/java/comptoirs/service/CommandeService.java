@@ -70,18 +70,17 @@ public class CommandeService {
     public Commande enregistreExpedition(Integer commandeNum) {
         var commande = commandeDao.findById(commandeNum).orElseThrow();
         // La commande existe
-        if (commande.getEnvoyeele() == null) {
+        if (commande.getEnvoyeele() != null)
+         { throw new IllegalStateException("La commande a déjà été expédiée"); }
         //La commande n'est pas déjà expédiée :
             commande.setEnvoyeele(LocalDate.now());
-
+        //On ajoute la date d'envoi
             for (Ligne l : commande.getLignes()) {
                 var p = l.getProduit();
                 int q = l.getQuantite();
                 p.setUnitesEnStock(p.getUnitesEnStock() - q);
             }
-        } else {
-            throw new IllegalStateException("La commande a déjà été expédiée");
-        }
+        // On enlève du stock les produits commandés et envoyés 
         return commande;
     }
 }

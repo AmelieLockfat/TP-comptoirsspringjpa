@@ -28,7 +28,7 @@ public class Produit {
 	private BigDecimal prixUnitaire = BigDecimal.TEN;
 
 	@ToString.Exclude
-	private int unitesEnStock = 0;
+	public int unitesEnStock = 0;
 
 	@ToString.Exclude
 	private int unitesCommandees = 0;
