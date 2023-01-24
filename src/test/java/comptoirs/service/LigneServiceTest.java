@@ -41,7 +41,34 @@ class LigneServiceTest {
 
     
     @Test
-    void testCommandeDejaEnvoyee(){
+    void testLaCommandeDejaEnvoyee(){
         assertThrows(IllegalStateException.class, () -> service.ajouterLigne(99999,96,20), "La commande doit être déjà envoyée.");
     }
+
+    @Test
+    void testLaCommandeNExistePas(){
+
+        assertThrows(Exception.class,
+                () -> service.ajouterLigne(99, 98, 20));
+    }
+
+    @Test
+    void testQuandProduitNExistePas(){
+        assertThrows(Exception.class,
+                () -> service.ajouterLigne(99999, 4, 20));
+    }
+
+    @Test
+    void testQuandLaCommandeDejaEnvoyee(){
+        assertThrows(Exception.class,
+                () -> service.ajouterLigne(99999, 98, 15));
+    }
+
+    @Test
+    void testQuantiteEnStockSuffisante(){
+        assertThrows(IllegalArgumentException.class,
+                () -> service.ajouterLigne(99998, 98, 150));
+    }
+
+
 }
