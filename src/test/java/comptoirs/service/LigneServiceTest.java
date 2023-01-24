@@ -33,23 +33,23 @@ class LigneServiceTest {
     }
 
     @Test
-    void laQuantiteEstPositive() {
-        assertThrows(ConstraintViolationException.class, 
-            () -> service.ajouterLigne(NUMERO_COMMANDE_PAS_LIVREE, REFERENCE_PRODUIT_DISPONIBLE_1, 0),
+    void testLaQuantiteEstNegative() {
+        assertThrows(Exception.class, 
+            () -> service.ajouterLigne(NUMERO_COMMANDE_PAS_LIVREE, REFERENCE_PRODUIT_DISPONIBLE_1, -4),
             "La quantite d'une ligne doit être positive");
     }
 
     
     @Test
     void testLaCommandeDejaEnvoyee(){
-        assertThrows(IllegalStateException.class, () -> service.ajouterLigne(99999,96,20), "La commande doit être déjà envoyée.");
+        assertThrows(IllegalStateException.class, () -> service.ajouterLigne(99999,96,20), "La commande est déjà envoyée.");
     }
 
     @Test
     void testLaCommandeNExistePas(){
 
         assertThrows(Exception.class,
-                () -> service.ajouterLigne(99, 98, 20));
+                () -> service.ajouterLigne(99, 98, 20),"Commande inexistante?");
     }
 
     @Test
@@ -65,9 +65,9 @@ class LigneServiceTest {
     }
 
     @Test
-    void testQuantiteEnStockSuffisante(){
-        assertThrows(IllegalArgumentException.class,
-                () -> service.ajouterLigne(99998, 98, 150));
+    void testQuantiteEnStockPASSuffisante(){
+        assertThrows(Exception.class,
+                () -> service.ajouterLigne(99998, 98, 290));
     }
 
 

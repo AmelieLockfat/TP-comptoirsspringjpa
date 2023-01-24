@@ -29,7 +29,7 @@ class CommandeServiceTest {
 
     @Autowired
     private CommandeService service;
-    private ProduitRepository ProduitDao;
+    private ProduitRepository produitDao;
 
 
     @Test
